@@ -29,6 +29,7 @@ import org.ttl.kotdsl.swing.frame
 import org.ttl.kotdsl.swing.gbc
 import org.ttl.kotdsl.swing.makeComponent
 import org.ttl.kotdsl.swing.makeProto
+import org.ttl.kotdsl.swing.textArea
 import org.ttl.kotdsl.swing.ui.FontFiddler
 import java.awt.BorderLayout
 import java.awt.Color
@@ -86,6 +87,13 @@ fun testLessSimpleSwing(args: Array<String>) {
         var gbc = gbc(w = Gbc.REMAINDER, weightx = 1.0, fill = Gbc.HORIZONTAL)
         button(layoutConstraint = gbc, text = "OK")
 
+        gbc = gbc(w = Gbc.REMAINDER, weightx = 1.0, fill = Gbc.BOTH)
+        textArea(layoutConstraint = gbc, text = "A lazy cow side stepped the moon.") {
+            columns = 100
+            rows = 20
+            minimumSize = Dimension(200, 200)
+        }
+
         gbc = gbc(anchor = Gbc.WEST, fill = Gbc.NONE, insets = Insets(10, 10, 10, 10))
         button(layoutConstraint = gbc, text = "Not OK") {
             font = font.deriveFont(20)
@@ -93,7 +101,7 @@ fun testLessSimpleSwing(args: Array<String>) {
         }
     }
 
-    frame.size = Dimension(500, 200)
+    frame.size = Dimension(500, 400)
     frame.setLocationRelativeTo(null)
     frame.isVisible = true
 }
@@ -164,8 +172,6 @@ object RunTests {
 
     @JvmStatic
     fun main(args: Array<String>) {
-
-
         //AP Set Fonts
         val minSize = FontFiddler.getMinFontSizeForScreen()
         val newFonts =
