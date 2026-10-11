@@ -1,0 +1,67 @@
+plugins {
+	id 'java'
+	id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+
+	//This one is for installing to mavenLocal
+	id 'maven-publish'
+}
+
+group = 'ttl.whirltime.swingdsl'
+version = '1.0'
+java {
+	sourceCompatibility = JavaVersion.VERSION_23
+	targetCompatibility = JavaVersion.VERSION_23
+}
+
+kotlin {
+	sourceCompatibility = JavaVersion.VERSION_23
+	targetCompatibility = JavaVersion.VERSION_23
+}
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.8.0'
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.8.0'
+    implementation 'ch.qos.logback:logback-classic:1.5.7'
+
+
+	testImplementation('org.junit.jupiter:junit-jupiter:5.9.0')
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
+tasks.withType(Test).all {
+	useJUnitPlatform()
+}
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId = 'ttl.whirltime.swingdsl'
+			artifactId = 'SwingDSL'
+			version = '1.0'
+			from components.java
+
+		}
+	}
+}
